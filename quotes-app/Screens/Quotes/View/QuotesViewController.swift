@@ -43,7 +43,7 @@ class QuotesViewController: UIViewController {
         view.addSubview(navbarView)
         navbarStackView.addArrangedSubview(navbarQuotesButton)
         navbarStackView.addArrangedSubview(navbarFavoritesButton)
-//        navbarStackView.addArrangedSubview(navbarProfileButton)
+        //        navbarStackView.addArrangedSubview(navbarProfileButton)
         navbarView.addSubview(navbarStackView)
     }
     
@@ -165,15 +165,15 @@ class QuotesViewController: UIViewController {
         button.tintColor = .systemGray
         return button
     }
-
+    
     private let navbarQuotesButton: UIButton = {
         return navbarButton(title: "Quotes")
     }()
-
+    
     private let navbarFavoritesButton: UIButton = {
         return navbarButton(title: "Favorites")
     }()
-
+    
     private let navbarProfileButton: UIButton = {
         return navbarButton(title: "Profile")
     }()
