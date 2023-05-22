@@ -7,6 +7,17 @@
 
 import Foundation
 
-protocol Quote {
+struct Quote: Codable {
+    let quote: String
+    let author: String
+    let category: String
     
+    enum CodingKeys: String, CodingKey {
+        case quote = "quote"
+        case author = "author"
+        case category = "category"
+    }
 }
+
+
+

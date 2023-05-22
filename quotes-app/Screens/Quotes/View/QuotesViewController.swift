@@ -9,6 +9,12 @@ import UIKit
 
 class QuotesViewController: UIViewController {
     
+    let quotesService = QuotesService()
+    
+    let viewModel = QuotesViewModel()
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMainView()
@@ -16,6 +22,7 @@ class QuotesViewController: UIViewController {
         setupButtonSection()
         setupNavbar()
         setupAutoLayout()
+        
     }
     
     func setupMainView(){
@@ -35,7 +42,7 @@ class QuotesViewController: UIViewController {
     
     func setupButtonSection(){
         view.addSubview(buttonStackView)
-        buttonStackView.addArrangedSubview(nextButton)
+        buttonStackView.addArrangedSubview(loadNextQuoteButton)
         buttonStackView.addArrangedSubview(addToFavoritesButton)
     }
     
@@ -61,7 +68,7 @@ class QuotesViewController: UIViewController {
         buttonStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
         buttonStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
         
-        nextButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        loadNextQuoteButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
         addToFavoritesButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         addToFavoritesButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
         
@@ -72,6 +79,7 @@ class QuotesViewController: UIViewController {
         
         quoteLabel.topAnchor.constraint(equalTo: quoteCardView.topAnchor, constant: 40).isActive = true
         quoteLabel.leftAnchor.constraint(equalTo: quoteCardView.leftAnchor, constant: 20).isActive = true
+        quoteLabel.rightAnchor.constraint(equalTo: quoteCardView.rightAnchor, constant: -20).isActive = true
         quoteAuthorLabel.topAnchor.constraint(equalTo: quoteCardView.bottomAnchor, constant: -60).isActive = true
         quoteAuthorLabel.leftAnchor.constraint(equalTo: quoteCardView.leftAnchor, constant: 20).isActive = true
     }
@@ -92,6 +100,7 @@ class QuotesViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "This is a random quote example."
+        label.numberOfLines = 0
         return label
     }()
     
@@ -114,7 +123,7 @@ class QuotesViewController: UIViewController {
         return stackView
     }()
     
-    private let nextButton: UIButton = {
+    private let loadNextQuoteButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Next", for: .normal)
@@ -125,8 +134,15 @@ class QuotesViewController: UIViewController {
             alpha: 1.0
         )
         button.layer.cornerRadius = 40
+        button.addTarget(self, action: #selector(loadNextQuoteButtonPressed), for: .touchUpInside)
         return button
     }()
+    
+    @objc func loadNextQuoteButtonPressed() {
+        viewModel.loadNextQuoteButtonPressed()
+        quoteLabel.text = viewModel.getQuoteText()
+        quoteAuthorLabel.text = viewModel.getQuoteAuthor()
+    }
     
     private let addToFavoritesButton: UIButton = {
         let button = UIButton(type: .system)
@@ -177,7 +193,6 @@ class QuotesViewController: UIViewController {
     private let navbarProfileButton: UIButton = {
         return navbarButton(title: "Profile")
     }()
-    
     
 }
 
