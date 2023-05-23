@@ -9,12 +9,17 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     
+    
+    private let favoritesQuotes: [Quote] = [Quote(quote: "Inside every adult there\'s still a child that lingers. We\'re happiness merchants - giving people the opportunity to dream like children.", author: "Guy Laliberte", category: "happiness"), Quote(quote: "Man is fond of counting his troubles, but he does not count his joys. If he counted them up as he ought to, he would see that every lot has enough happiness provided for it.", author: "Fyodor Dostoevsky", category: "happiness")]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavbar()
         setupFavoritesTableView()
         setupTopBar()
         setupAutoLayout()
+        print(favoritesQuotes.count)
+        print(QuoteCell.id)
     }
     
     func setupTopBar(){
@@ -24,6 +29,8 @@ class FavoritesViewController: UIViewController {
     
     func setupFavoritesTableView(){
         view.addSubview(favoritesTableView)
+        self.favoritesTableView.delegate = self
+        self.favoritesTableView.dataSource = self
     }
     
     func setupNavbar(){
@@ -84,12 +91,16 @@ class FavoritesViewController: UIViewController {
     
     
     
-    // MARK: - Favorites Table View
+    // MARK: - Table View
     
     private let favoritesTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .lightGray
+        tableView.allowsSelection = true
+        tableView.register(QuoteCell.self, forCellReuseIdentifier: QuoteCell.id)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 200
         return tableView
     }()
     
@@ -132,4 +143,18 @@ class FavoritesViewController: UIViewController {
     private let navbarProfileButton: UIButton = {
         return navbarButton(title: "Profile")
     }()
+}
+
+
+extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.favoritesQuotes.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: QuoteCell.id, for: indexPath) as! QuoteCell
+        return cell
+    }
+
+
 }

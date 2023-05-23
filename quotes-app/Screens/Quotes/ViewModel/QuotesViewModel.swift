@@ -20,6 +20,7 @@ class QuotesViewModel: NSObject {
             }
             
             self.quotes = quotes
+            print(quotes)
 
         }
         

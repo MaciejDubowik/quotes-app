@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 class QuotesService {
     func loadData(completion:@escaping ([Quote]?) -> Void) {
         guard let category = "happiness".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
