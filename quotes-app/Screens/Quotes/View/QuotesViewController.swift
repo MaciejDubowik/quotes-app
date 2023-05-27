@@ -140,8 +140,11 @@ class QuotesViewController: UIViewController {
     
     @objc func loadNextQuoteButtonPressed() {
         viewModel.loadNextQuoteButtonPressed()
-        quoteLabel.text = viewModel.getQuoteText()
-        quoteAuthorLabel.text = viewModel.getQuoteAuthor()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.quoteLabel.text = self.viewModel.getQuoteText()
+            self.quoteAuthorLabel.text = self.viewModel.getQuoteAuthor()
+        }
     }
     
     private let addToFavoritesButton: UIButton = {
@@ -151,8 +154,16 @@ class QuotesViewController: UIViewController {
         button.backgroundColor = .white
         button.tintColor = .black
         button.layer.cornerRadius = 40
+        
+        button.addTarget(self, action: #selector(addToFavoritesPressed), for: .touchUpInside)
         return button
     }()
+    
+    @objc func addToFavoritesPressed() {
+        viewModel.addToFavorites()
+    }
+    
+    
     
     
     

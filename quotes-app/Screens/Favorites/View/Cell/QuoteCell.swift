@@ -9,11 +9,12 @@ import UIKit
 
 class QuoteCell: UITableViewCell {
     static let id = "QuoteCell"
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupQuoteCell()
         self.setupAutoLayout()
+
     }
     
     required init?(coder: NSCoder) {
@@ -41,25 +42,25 @@ class QuoteCell: UITableViewCell {
     }
     
     
-    private let quoteCellLabel: UILabel = {
+    let quoteCellLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "This is a random quote example. This is a random quote example. This is a random quote example.  This is a random quote example.  This is a random quote example. "
+        label.text = ""
         label.numberOfLines = 0
         return label
     }()
     
-    private let authorCellLabel: UILabel = {
+    let authorCellLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Author Name"
+        label.text = ""
         return label
     }()
     
-    private let categoryCellLabel: UILabel = {
+    let categoryCellLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "category"
+        label.text = ""
         return label
     }()
     

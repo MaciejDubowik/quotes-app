@@ -9,8 +9,7 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     
-
-    private let favoritesQuotes: [Quote] = [Quote(quote: "Inside every adult there\'s still a child that lingers. We\'re happiness merchants - giving people the opportunity to dream like children.", author: "Guy Laliberte", category: "happiness"), Quote(quote: "Man is fond of counting his troubles, but he does not count his joys. If he counted them up as he ought to, he would see that every lot has enough happiness provided for it.", author: "Fyodor Dostoevsky", category: "happiness")]
+    let viewModel = FavoritesViewModel.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +17,10 @@ class FavoritesViewController: UIViewController {
         setupFavoritesTableView()
         setupTopBar()
         setupAutoLayout()
-        print(favoritesQuotes.count)
+//        viewModel.favoritesQuotes.append(
+//            Quote(quote: "Your new quote here", author: "Author here", category: "Category here")
+//        )
+        print(viewModel.favoriteQuotes.quotes.count)
         print(QuoteCell.id)
         navigationItem.hidesBackButton = true
     }
@@ -155,11 +157,16 @@ class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.favoritesQuotes.count
+        return viewModel.favoriteQuotes.quotes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: QuoteCell.id, for: indexPath) as! QuoteCell
+        let quote = viewModel.favoriteQuotes.quotes[indexPath.row]
+        
+        cell.quoteCellLabel.text = quote.quote
+        cell.authorCellLabel.text = quote.author
+        cell.categoryCellLabel.text = quote.category
         return cell
     }
 

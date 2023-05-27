@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+class FavoritesViewModel {
+    static let shared = FavoritesViewModel()
+    private init() {}
+
+    var favoriteQuotes = FavoriteQuotes(quotes: [])
+    
+}
+

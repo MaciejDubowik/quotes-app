@@ -10,6 +10,7 @@ import UIKit
 
 
 class QuotesViewModel: NSObject {
+    private let favoritesViewModel = FavoritesViewModel.shared
     private var quotesService = QuotesService()
     private var quotes: [Quote] = []
         
@@ -33,6 +34,11 @@ class QuotesViewModel: NSObject {
     
     func getQuoteAuthor() -> String {
         return quotes.first?.author ?? ""
+    }
+    
+    func addToFavorites() {
+        favoritesViewModel.favoriteQuotes.quotes.append(quotes.first!)
+        print(favoritesViewModel.favoriteQuotes.quotes)
     }
     
 }
