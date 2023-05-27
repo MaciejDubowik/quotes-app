@@ -8,14 +8,13 @@
 import UIKit
 
 class QuotesViewController: UIViewController {
-    
     let quotesService = QuotesService()
-    
     let viewModel = QuotesViewModel()
+    weak var coordinator: QuotesCoordinator?
+
     
     
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMainView()
@@ -188,8 +187,14 @@ class QuotesViewController: UIViewController {
     }()
     
     private let navbarFavoritesButton: UIButton = {
-        return navbarButton(title: "Favorites")
+        let button = navbarButton(title: "Favorites")
+        button.addTarget(self, action: #selector(navigateToFavorites), for: .touchUpInside)
+        return button
     }()
+    
+    @objc func navigateToFavorites() {
+        coordinator?.navigateToFavorites()
+    }
     
     private let navbarProfileButton: UIButton = {
         return navbarButton(title: "Profile")

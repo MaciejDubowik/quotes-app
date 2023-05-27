@@ -9,7 +9,7 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
     
-    
+
     private let favoritesQuotes: [Quote] = [Quote(quote: "Inside every adult there\'s still a child that lingers. We\'re happiness merchants - giving people the opportunity to dream like children.", author: "Guy Laliberte", category: "happiness"), Quote(quote: "Man is fond of counting his troubles, but he does not count his joys. If he counted them up as he ought to, he would see that every lot has enough happiness provided for it.", author: "Fyodor Dostoevsky", category: "happiness")]
     
     override func viewDidLoad() {
@@ -20,6 +20,7 @@ class FavoritesViewController: UIViewController {
         setupAutoLayout()
         print(favoritesQuotes.count)
         print(QuoteCell.id)
+        navigationItem.hidesBackButton = true
     }
     
     func setupTopBar(){
@@ -133,8 +134,14 @@ class FavoritesViewController: UIViewController {
     }
     
     private let navbarQuotesButton: UIButton = {
-        return navbarButton(title: "Quotes")
+        let button = navbarButton(title: "Quotes")
+        button.addTarget(self, action: #selector(navigateToQuotes), for: .touchUpInside)
+        return button
     }()
+    
+    @objc func navigateToQuotes() {
+        self.navigationController?.popViewController(animated: false)
+    }
     
     private let navbarFavoritesButton: UIButton = {
         return navbarButton(title: "Favorites")

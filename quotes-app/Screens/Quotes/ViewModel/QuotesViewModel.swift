@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
 
 class QuotesViewModel: NSObject {
     private var quotesService = QuotesService()
     private var quotes: [Quote] = []
-    
+        
     func loadNextQuoteButtonPressed() {
         quotesService.loadData { quotes in
             guard let quotes = quotes else {
@@ -34,6 +35,4 @@ class QuotesViewModel: NSObject {
         return quotes.first?.author ?? ""
     }
     
-    
-
 }
